@@ -1,29 +1,31 @@
 from collections import deque
 
 bullet_price = int(input())
-gun_size = int(input())
-bullets = list(map(int, input().split()))[::-1]
-locks = deque(map(int, input().split()))
-value = int(input())
-shots = 0
+size_barrel = int(input())
+bullets_list = [int(x) for x in input().split()]
+locks_list = deque(int(x) for x in input().split())
+intelligence_value = int(input())
+counter = 0
 
-for i in range(len(bullets)):
-    if bullets[i] <= locks[0]:
-        locks.popleft()
-        print('Bang!')
-    else:
+while locks_list:
+    counter += 1
+    intelligence_value -= bullet_price
+    bullet = bullets_list.pop()
+    lock = locks_list.popleft()
+
+    if lock < bullet:
+        locks_list.appendleft(lock)
         print('Ping!')
+    else:
+        print('Bang!')
 
-    shots += 1
-    value -= bullet_price
-
-    if shots == gun_size and i != len(bullets) - 1:
-        shots = 0
+    if not bullets_list:
+        break
+    elif bullets_list and counter == size_barrel:
+        counter = 0
         print('Reloading!')
 
-    if not locks:
-        print(f'{len(bullets) - i - 1} bullets left. Earned ${value}')
-        break
-
-if locks:
-    print(f"Couldn't get through. Locks left: {len(locks)}")
+if not locks_list:
+    print(f'{len(bullets_list)} bullets left. Earned ${intelligence_value}')
+else:
+    print(f"Couldn't get through. Locks left: {len(locks_list)}")
