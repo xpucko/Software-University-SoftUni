@@ -1,0 +1,1 @@
+[print(x) for x in set(input() for _ in range(int(input())))]
