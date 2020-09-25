@@ -1,0 +1,1 @@
+[print(f'{x[0]} -> {x[1]}') for x in zip(input().split(', '), input().split(', '))]
