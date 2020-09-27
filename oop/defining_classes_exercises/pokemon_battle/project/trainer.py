@@ -1,4 +1,4 @@
-from oop.defining_classes_exercises.pokemon_battle.project.pokemon import Pokemon
+from project.pokemon import Pokemon
 
 
 class Trainer:

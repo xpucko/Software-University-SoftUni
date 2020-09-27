@@ -1,6 +1,5 @@
 from typing import List
-
-from oop.defining_classes_exercises.todo_list import Task
+from project.task import Task
 
 
 class Section:

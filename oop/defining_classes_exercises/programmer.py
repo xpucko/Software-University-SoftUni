@@ -20,21 +20,3 @@ class Programmer:
             else:
                 result = f"{self.name} already knows {new_language}"
         return result
-
-
-# programmer = Programmer('John', 'Java', 50)
-# print(programmer.watch_course('Python Masterclass', 'Python', 84))
-# print(programmer.change_language('Java', 30))
-# print(programmer.change_language('Python', 100))
-# print(programmer.watch_course('Java: zero to hero', 'Java', 84))
-# print(programmer.change_language('Python', 100))
-# print(programmer.watch_course('Python Masterclass', 'Python', 84))
-
-'''
-John does not know Python
-John already knows Java
-John needs 50 more skills
-John watched Java: zero to hero
-John switched from Java to Python
-John watched Python Masterclass
-'''
