@@ -1,36 +1,34 @@
-def get_empty_matrix(size):
-    return [[0 for _ in range(size)] for _ in range(size)]
+def read_matrix():
+    size = int(input())
+    return [[0] * size for _ in range(size)]
 
 
-def get_bombs_coordinates(count):
-    return [[int(x) for x in input().strip('()').split(', ')] for _ in range(count)]
+def is_valid(matrix, next_row, next_col):
+    return 0 <= next_row < len(matrix) and 0 <= next_col < len(matrix) and matrix[next_row][next_col] != '*'
 
 
-def is_valid(row_count, col_count, matrix):
-    return row_count in range(len(matrix)) and col_count in range(len(matrix))
-
-
-def get_matrix_before_explode(matrix, coordinates):
-    for current in coordinates:
-        row_count, col_count = current[0], current[1]
-        matrix[row_count][col_count] = '*'
-
-    return matrix
+def get_bombs_pos():
+    return [[int(x) for x in input().strip('()').split(', ')] for _ in range(int(input()))]
 
 
 def explode_bombs(matrix, bombs_positions):
-    for current_pos in bombs_positions:
-        row_count, col_count = current_pos[0], current_pos[1]
-        for x in [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]:
-            possible_row, possible_col = x[0] + row_count, x[1] + col_count
-            if is_valid(possible_row, possible_col, matrix) and matrix[possible_row][possible_col] != '*':
-                matrix[possible_row][possible_col] += 1
+    exp = [[-1, -1], [-1, 0], [-1, 1], [0, -1], [0, 1], [1, -1], [1, 0], [1, 1]]
+    for bomb_pos in bombs_positions:
+        y, x = bomb_pos[0], bomb_pos[1]
+        field[y][x] = '*'
+        for current in exp:
+            next_y, next_x = y + current[0], x + current[1]
+            if is_valid(field, next_y, next_x):
+                field[next_y][next_x] += 1
 
     return matrix
 
 
-empty_field = get_empty_matrix(int(input()))
-bombs_pos = get_bombs_coordinates(int(input()))
-field = get_matrix_before_explode(empty_field, bombs_pos)
-exploded_field = explode_bombs(field, bombs_pos)
-[print(' '.join(map(str, row))) for row in exploded_field]
+def print_field(matrix):
+    return [print(' '.join(map(str, x))) for x in matrix]
+
+
+field = read_matrix()
+bombs_pos = get_bombs_pos()
+explode_bombs(field, bombs_pos)
+print_field(field)

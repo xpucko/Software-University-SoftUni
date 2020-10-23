@@ -1,22 +1,19 @@
-from collections import deque
+customers = [int(x) for x in input().split(', ')]
+taxis = [int(x) for x in input().split(', ')]
+total_time = 0
 
+while customers and taxis:
+    customer = customers[0]
+    taxi = taxis[-1]
+    if customer <= taxi:
+        taxis.pop()
+        total_time += customers.pop(0)
+    else:
+        taxis.pop()
 
-def solve(customers, taxis):
-    total_time = 0
-    while customers:
-        if not taxis:
-            return f'Not all customers were driven to their destinations\nCustomers left: {", ".join(map(str, customers))}'
-        customer = customers.popleft()
-        taxi = taxis.pop()
-        if customer <= taxi:
-            total_time += customer
-        else:
-            customers.appendleft(customer)
-
-    if not customers:
-        return f'All customers were driven to their destinations\nTotal time: {total_time} minutes'
-
-
-my_customers = deque([int(x) for x in input().split(', ')])
-my_taxis = [int(x) for x in input().split(', ')]
-print(solve(my_customers, my_taxis))
+if not customers:
+    print('All customers were driven to their destinations')
+    print(f'Total time: {total_time} minutes')
+else:
+    print(f'Not all customers were driven to their destinations')
+    print(f'Customers left: {", ".join(map(str, customers))}')
