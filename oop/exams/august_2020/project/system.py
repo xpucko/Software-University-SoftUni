@@ -27,8 +27,8 @@ class System:
         try:
             current_hardware[0].install(current_software)
             System._software.append(current_software)
-        except Exception:
-            return "Software cannot be installed"
+        except Exception as e:
+            return str(e)
 
     @staticmethod
     def register_light_software(hardware_name: str, name: str, capacity_consumption: int, memory_consumption: int):
@@ -41,8 +41,8 @@ class System:
         try:
             current_hardware[0].install(current_software)
             System._software.append(current_software)
-        except Exception:
-            return "Software cannot be installed"
+        except Exception as e:
+            return str(e)
 
     @staticmethod
     def release_software_component(hardware_name: str, software_name: str):
@@ -57,15 +57,10 @@ class System:
 
     @staticmethod
     def analyze():
-        total_memory = sum([h.memory for h in System._hardware])
-        total_capacity = sum([h.capacity for h in System._hardware])
-        used_memory = 0
-        used_capacity = 0
-
-        for h in System._hardware:
-            for s in h.software_components:
-                used_memory += s.memory_consumption
-                used_capacity += s.capacity_consumption
+        total_memory = sum(h.memory for h in System._hardware)
+        total_capacity = sum(h.capacity for h in System._hardware)
+        used_memory = sum(s.memory_consumption for s in System._software)
+        used_capacity = sum(s.capacity_consumption for s in System._software)
 
         return f'System Analysis\n' \
                f'Hardware Components: {len(System._hardware)}\n' \

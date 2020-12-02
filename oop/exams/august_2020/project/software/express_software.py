@@ -4,5 +4,5 @@ from project.software.software import Software
 class ExpressSoftware(Software):
 
     def __init__(self, name: str, capacity_consumption: int, memory_consumption: int):
-        super(ExpressSoftware, self).__init__(name, 'Express', capacity_consumption, memory_consumption)
+        super().__init__(name, 'Express', capacity_consumption, memory_consumption)
         self.memory_consumption = int(self.memory_consumption * 2)
